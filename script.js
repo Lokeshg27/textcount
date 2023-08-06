@@ -1,40 +1,31 @@
-function TextCount() {
-    const _text = document.getElementById('text');
-    const _textPrint = document.getElementById('textPrint');
-    const _textCount = document.getElementById('textCount');
-    let _reset = document.getElementById('reset');
+function element(selector) {
+    return document.getElementById(selector);
+}
+const _text = element('text');
+const _textPrint = element('textPrint');
+const _textCount = element('textCount');
+const _reset = element('reset');
 
-    function loadAllEvents() {
-        _text.addEventListener('input', textVal);
-        _text.addEventListener('keydown', backspaceDelete);
-        _reset.addEventListener('click', resetText);
-    }
-
-    function textVal() {
-        _textPrint.innerText = _text.value;
-        _textCount.innerText = _text.value.length;
-    }
-
-    function resetText() {
-        _text.value = '';
-        _textPrint.innerText = '';
-        _textCount.innerText = '';
-    }
-
-    function backspaceDelete(e) {
-        if (e.keyCode === 8) {
-            _textPrint.innerText = '';
-            _textCount.innerText = '';
-        }
-
-        else if(e.keyCode === 46) {
-            _text.value = '';
-            _textPrint.innerText = '';
-            _textCount.innerText = '';
-        }
-    }
-
-    loadAllEvents();
+const loadAllEvents = () =>{
+    _text.addEventListener('input', textVal);
+    _reset.addEventListener('click', resetText);
 }
 
-const textCount = new TextCount();
+const textVal = () => {
+    _textPrint.innerText = _text.value;
+    _textCount.innerText = _text.value.length;
+    let valueLength = _text.value.length;
+    if (valueLength === 0) {
+        _textCount.innerText = '';
+    } else {
+        _textCount.innerText = valueLength;
+    }
+}
+
+ const resetText = () => {
+    _text.value = '';
+    _textPrint.innerText = '';
+    _textCount.innerText = '';
+}
+
+loadAllEvents();
